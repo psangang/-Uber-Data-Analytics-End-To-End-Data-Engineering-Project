@@ -1,0 +1,33 @@
+# Install Python and pip 
+sudo apt-get update
+
+sudo apt-get install python3-distutils
+
+sudo apt-get install python3-apt
+
+sudo apt-get install wget
+
+wget https://bootstrap.pypa.io/get-pip.py
+
+sudo python3 get-pip.py
+
+
+Create Virtual Environment in your project folder
+
+cd /path/to/uber_de_in_mageenv
+
+python3 -m venv mage_env
+
+source mage_env/bin/activate
+
+pip install mage-ai pandas sqlalchemy boto3 psycopg2-binary pyarrow
+
+pip install sshtunnel
+
+pip install google-cloud
+
+pip install google-clud-bigquery
+
+mage start
+
+
