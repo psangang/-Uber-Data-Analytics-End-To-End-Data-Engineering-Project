@@ -61,13 +61,14 @@ SELECT
     f.improvement_surcharge,
     f.total_amount
 FROM uber_de_yt.fact_table f
-JOIN uber_de_yt.datetime_dim d ON f.datetime_id = d.datetime_id
-JOIN uber_de_yt.passenger_count_dim p ON p.passenger_count_id = f.passenger_count_id
-JOIN uber_de_yt.trip_distance_dim t ON t.trip_distance_id = f.trip_distance_id
-JOIN uber_de_yt.rate_code_dim r ON r.rate_code_id = f.rate_code_id
-JOIN uber_de_yt.pickup_location_dim pick ON pick.pickup_location_id = f.pickup_location_id
-JOIN uber_de_yt.drop_location_dim drop ON drop.drop_location_id = f.drop_location_id
-JOIN uber_de_yt.payment_type_dim pay ON pay.payment_type_id = f.payment_type_id;
+lEFT JOIN uber_de_yt.datetime_dim d ON f.datetime_id = d.datetime_id
+lEFT JOIN uber_de_yt.passenger_count_dim p ON p.passenger_count_id = f.passenger_count_id
+lEFT JOIN uber_de_yt.trip_distance_dim t ON t.trip_distance_id = f.trip_distance_id
+lEFT JOIN uber_de_yt.rate_code_dim r ON r.rate_code_id = f.rate_code_id
+lEFT JOIN uber_de_yt.pickup_location_dim pick ON pick.pickup_location_id = f.pickup_location_id
+lEFT JOIN uber_de_yt.drop_location_dim drop ON drop.drop_location_id = f.drop_location_id
+lEFT JOIN uber_de_yt.payment_type_dim pay ON pay.payment_type_id = f.payment_type_id;
+
 
 --- Find top 10 pickup locations based on number of trips
 --- Find total number of trips by passenger count
