@@ -32,16 +32,9 @@ JOIN `uber_de_yt.pickup_location_dim` pick ON pick.pickup_location_id=f.pickup_l
 JOIN `uber_de_yt.drop_location_dim` drop ON drop.drop_location_id=f.drop_location_id
 JOIN `uber_de_yt.payment_type_dim` pay ON pay.payment_type_id=f.payment_type_id)
 
---- Find top 10 pickup locations based on number of trips
---- Find total number of trips by passenger count
---- Find the average fare amount by hour of the day
-
-
 
   ---- Postgres Syntax ------
 
-
-  
 -- Drop table first if you want to replace it
 DROP TABLE IF EXISTS uber_de_yt.tbl_analytics;
 
@@ -75,6 +68,12 @@ JOIN uber_de_yt.rate_code_dim r ON r.rate_code_id = f.rate_code_id
 JOIN uber_de_yt.pickup_location_dim pick ON pick.pickup_location_id = f.pickup_location_id
 JOIN uber_de_yt.drop_location_dim drop ON drop.drop_location_id = f.drop_location_id
 JOIN uber_de_yt.payment_type_dim pay ON pay.payment_type_id = f.payment_type_id;
+
+--- Find top 10 pickup locations based on number of trips
+--- Find total number of trips by passenger count
+--- Find the average fare amount by hour of the day
+
+
 
 
 
