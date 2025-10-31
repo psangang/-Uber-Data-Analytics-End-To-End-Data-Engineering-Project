@@ -13,10 +13,10 @@ different columns like pick_hour, pick_day, pick_month, etc.
 All above transformations are already done in Jupyter notebook where we initially created all dimensions and fact tables strucuters by means of creating multiple data frames i.e. datatime_dim, pickup_location_dim, drop_location_dim, etc. All these are nothing but 
 data frames that we created after reading data from csv files.
 
-Next step is to actually load data to DB tables. Here, based on tutorial we are converting dataframes to dictionary so that data is represented in JSON format and loaded to bigquery. However, we can directly load data from data frames to Bigquery using appropriate cnnectors.
-There could be several reasons as to why we have to convert data to dictionaries before loading such as if we are using row insertion API and not doing bulk DataFrame Loading where data in inserted into small chunks incrementally.
+Next step is to actually load data to DB tables. Here, based on tutorial we are converting dataframes to dictionary so that data is represented in JSON format and loaded to bigquery. However, we can directly load data from data frames to Bigquery using 
+appropriate cnnectors. There could be several reasons as to why we have to convert data to dictionaries before loading such as if we are using row insertion API and not doing bulk DataFrame Loading where data in inserted into small chunks incrementally.
 
-
+Once, data is loaded to Bigquery of Postgres next part is to create view for your analytics and start analyzing.
 
 
 
