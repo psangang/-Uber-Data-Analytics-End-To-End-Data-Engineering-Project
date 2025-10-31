@@ -1,2 +1,26 @@
 NOTES:
 
+We used csv uber data file which has information about uber rides
+loaded file to Google Bucket
+Spinned up VM with Debian OS
+Adjusted firewall rules to make VM accessible over public or specific IP's and added ports for mage-ai, ssh, etc.
+Create Virtual env for Mage-Ai
+Installed and configured Python and necessary libraries needed to create pipeline in Mage-Ai including the ones needed for loading data into Google Big query and Postgres
+In Mage we extracted data from csv file sitting in google bucket using Api.
+Second step is reading data from csv and converting to Data Frames and performing transformation to extract data in whatever format we need i.e. we are first converting tpep_pickup_datatime to datetime object in pandas df and then creating datetime_dim df object with 
+different columns like pick_hour, pick_day, pick_month, etc.
+
+All above transformations are already done in Jupyter notebook where we initially created all dimensions and fact tables strucuters by means of creating multiple data frames i.e. datatime_dim, pickup_location_dim, drop_location_dim, etc. All these are nothing but 
+data frames that we created after reading data from csv files.
+
+Next step is to actually load data to DB tables. Here, based on tutorial we are converting dataframes to dictionary so that data is represented in JSON format and loaded to bigquery. However, we can directly load data from data frames to Bigquery using appropriate cnnectors.
+There could be several reasons as to why we have to convert data to dictionaries before loading such as if we are using row insertion API and not doing bulk DataFrame Loading where data in inserted into small chunks incrementally.
+
+
+
+
+
+Observations:
+
+We need to use Left join when joining fact tables with dimention tables isntead of inner join, this was something not highlighted in Youtube tutorial
+
