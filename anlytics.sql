@@ -70,11 +70,73 @@ lEFT JOIN uber_de_yt.drop_location_dim drop ON drop.drop_location_id = f.drop_lo
 lEFT JOIN uber_de_yt.payment_type_dim pay ON pay.payment_type_id = f.payment_type_id;
 
 
---- Find top 10 pickup locations based on number of trips
---- Find total number of trips by passenger count
 --- Find the average fare amount by hour of the day
 
+SELECT 
 
+    EXTRACT(HOUR FROM TO_TIMESTAMP(tpep_dropoff_datetime, 'YYYY-MM-DD"T"HH24:MI:SS')) AS hour_of_the_day, round(avg(fare_amount::numeric),2)
+FROM tbl_analytics
+group by 1
+order by 1;
+
+--- Find total number of trips by passenger count
+
+select passenger_count, count(*)
+FROM tbl_analytics
+group by 1
+order by 1;
+
+--- Find top 10 pickup locations based on number of trips
+
+select 
+round(pickup_latitude::numeric, 3) as pick_lat,
+round(pickup_longitude::numeric, 3) as pick_long,
+count(*) as number_of_trips
+FROM tbl_analytics
+group by 1,2
+order by number_of_trips desc
+limit 10;
+
+--- What is the total number of trips recorded in the dataset?
+
+select count(trip_id) as total_trips
+FROM tbl_analytics;
+
+--- What is the time range (start and end dates) of the dataset?
+
+select min(tpep_pickup_datetime) as start_time, max(tpep_dropoff_datetime) as end_time
+FROM tbl_analytics;
+
+--- What are the average values for distance, total fare, tip, and passenger count?
+
+select round(avg(trip_distance)::numeric,2) as avg_distance, round(avg(fare_amount)::numeric,2) as avg_fare_amt, round(avg(total_amount)::numeric,2) as avg_total_amt, 
+round(avg(tip_amount)) as avg_tip, round(avg(passenger_count)) as avg_passenger_count
+FROM tbl_analytics;
+
+--- Are there any missing or abnormal values in key metrics like fare, tip, or distance?
+
+SELECT
+    COUNT(*) AS total_rows,
+    
+    -- FARE
+    SUM(CASE WHEN fare_amount IS NULL THEN 1 ELSE 0 END) AS missing_fare,
+    SUM(CASE WHEN fare_amount = 0 THEN 1 ELSE 0 END) AS zero_fare,
+    SUM(CASE WHEN fare_amount < 0 THEN 1 ELSE 0 END) AS negative_fare,
+    SUM(CASE WHEN fare_amount > 1000 THEN 1 ELSE 0 END) AS extremely_high_fare,
+    
+    -- TIP
+    SUM(CASE WHEN tip_amount IS NULL THEN 1 ELSE 0 END) AS missing_tip,
+    SUM(CASE WHEN tip_amount = 0 THEN 1 ELSE 0 END) AS zero_tip,
+    SUM(CASE WHEN tip_amount < 0 THEN 1 ELSE 0 END) AS negative_tip,
+    SUM(CASE WHEN tip_amount > 500 THEN 1 ELSE 0 END) AS extremely_high_tip,
+    
+    -- DISTANCE
+    SUM(CASE WHEN trip_distance IS NULL THEN 1 ELSE 0 END) AS missing_distance,
+    SUM(CASE WHEN trip_distance = 0 THEN 1 ELSE 0 END) AS zero_distance,
+    SUM(CASE WHEN trip_distance < 0 THEN 1 ELSE 0 END) AS negative_distance,
+    SUM(CASE WHEN trip_distance > 100 THEN 1 ELSE 0 END) AS extremely_high_distance
+
+FROM tbl_analytics;
 
 
 
