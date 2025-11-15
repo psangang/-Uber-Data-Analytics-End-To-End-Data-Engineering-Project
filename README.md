@@ -46,4 +46,4 @@ The architecture consists of the following components:
 - **Python packages:** pandas, SQLAlchemy, sshtunnel, dbt, etc.
 
 ## Diagram
-![Architecture Diagram](./architecture_diagram.png)
+![Architecture Diagram](https://github.com/psangang/-Uber-Data-Analytics-End-To-End-Data-Engineering-Project/blob/main/Architecture.png)
